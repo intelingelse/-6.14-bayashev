@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="34ece174-ce60-43cb-8b41-8b90732853cf" name="testserver" url="http://localhost">
+        <fileTransfer mountedRoot="C:\Users\W2\Desktop\python\JavaScript final\A6.15-4-starting-source-code__1_" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>

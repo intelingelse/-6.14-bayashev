@@ -5,6 +5,7 @@ let prevDivSelector = undefined;
 let hits = 1;
 let firstHitTime;
 let misses=0;
+let p;
 
 
 function round() {
@@ -14,7 +15,9 @@ function round() {
   }
 
   if(divSelector!==undefined) {
-    $(divSelector).removeClass("target").empty();
+    $(divSelector).removeClass("target");
+    $(divSelector+" p").removeClass("target");
+    $(divSelector+" p").empty();
   }
   else {
     firstHitTime = getTimestamp();
@@ -25,20 +28,22 @@ function round() {
   if (hits !== maxHits){
     checkDuplicateSelector(prevDivSelector, divSelector);
   }
-  
+
   prevDivSelector = divSelector;
 
 }
 
 
-function checkDuplicateSelector(prev, next) {
-  if (prev===next){
+function checkDuplicateSelector(prevDivSelector, divSelector) {
+  if (prevDivSelector===divSelector){
     divSelector = randomDivId();
-    checkDuplicateSelector();
+    checkDuplicateSelector(prevDivSelector, divSelector);
 
   }
   else{
-    $(divSelector).addClass("target").text(hits);
+    $(divSelector).addClass("target");
+    $(divSelector+" p").addClass("target");
+    $(divSelector+" p").text(hits);
   }
 }
 
@@ -56,15 +61,20 @@ function endGame() {
 }
 
 function handleClick(event) {
+  console.log()
   if ($(event.target).hasClass("target")) {
     hits = hits + 1;
     round();
   }
-  // TODO: как-то отмечать если мы промахнулись? См CSS класс .miss
   else {
     $(event.target).addClass("miss");
-    $(event.target).text("ПРОМАХ");
-    setTimeout(function(){ $(event.target).removeClass("miss").empty(); }, 1000);
+    p = $(this).children();
+    p.text("ПРОМАХ!");
+
+    setTimeout(function(){
+      $(event.target).removeClass("miss");
+      p.empty();
+    }, 200);
     misses++;
   }
 }
@@ -76,8 +86,9 @@ function init() {
   $("#button-start").click(function () {
       round();
       $("#button-start").hide();
+      $(".game-field").click(handleClick);
   });
-  $(".game-field").click(handleClick);
+
   $("#button-reload").click(function() {
     location.reload();
   });

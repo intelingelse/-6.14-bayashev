@@ -1,5 +1,5 @@
 .container{
-  width: 60%;
+  width: 45%;
 }
 
 .game-deck {
@@ -16,6 +16,14 @@
   min-height: 10vh;
   margin: 1px 1px 1px 1px;
   line-height: 10vh;
+}
+
+.text {
+  margin: 0 auto;
+}
+
+.game-field>p{
+  margin: 0;
 }
 
 .target {
